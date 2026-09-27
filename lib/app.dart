@@ -20,14 +20,36 @@ abstract final class AppRoutes {
   static const String progress = '/progress';
   static const String detail = '/detail';
 
-  /// Ruta de detalle con el id del recurso: `/detail/flt-01`.
-  static String detailOf(String resourceId) => '$detail/$resourceId';
+  static const String _detailPrefix = '$detail/';
 
-  /// Extrae el id del recurso de los argumentos de la ruta de detalle.
+  /// Ruta de detalle con el id embebido: `/detail/flt-01`.
+  static String detailOf(String resourceId) => '$_detailPrefix$resourceId';
+
+  /// Colapsa `/detail/<id>` a `/detail` para que el generador de rutas
+  /// resuelva por igual la ruta base y la ruta con id.
+  static String? normalize(Object? name) {
+    if (name is! String) return null;
+    return name.startsWith(_detailPrefix) ? detail : name;
+  }
+
+  /// Extrae el id del recurso de una ruta de detalle: `/detail/flt-01` -> `flt-01`.
+  ///
+  /// Devuelve `null` si la ruta no es de detalle o no trae id.
+  static String? resourceIdFromRoute(Object? name) {
+    if (name is! String) return null;
+    if (!name.startsWith(_detailPrefix)) return null;
+    final id = name.substring(_detailPrefix.length);
+    return id.isEmpty ? null : id;
+  }
+
+  /// Lee el id del recurso de los `arguments` con los que se empuja la ruta.
+  ///
+  /// Todos los screens empujan `arguments: resource.id`, que es de donde
+  /// [DetailScreen] obtiene el recurso.
   static String? resourceIdOf(Object? arguments) {
-    if (arguments is! String || arguments.isEmpty) return null;
-    final parts = arguments.split('/');
-    return parts.last;
+    if (arguments is! String) return null;
+    final id = arguments.trim();
+    return id.isEmpty ? null : id;
   }
 }
 
@@ -46,15 +68,20 @@ class ExreApp extends StatelessWidget {
         theme: AppTheme.dark,
         themeMode: ThemeMode.dark,
         initialRoute: AppRoutes.home,
-        onGenerateRoute: _generateRoute,
+        onGenerateRoute: generateRoute,
       ),
     );
   }
 
-  static Route<dynamic>? _generateRoute(RouteSettings settings) {
+  /// Generador de rutas. Público para poder reutilizarlo en pruebas.
+  @visibleForTesting
+  static Route<dynamic>? generateRoute(RouteSettings settings) {
+    // `/detail` y `/detail/<id>` resuelven a la misma pantalla.
+    final route = AppRoutes.normalize(settings.name);
+
     // Las cinco pestañas comparten `AppShell` (IndexedStack + barra inferior),
     // de modo que cambiar de pestaña conserva el estado de cada una.
-    final Widget screen = switch (settings.name) {
+    final Widget screen = switch (route) {
       AppRoutes.home => const AppShell(initialTab: AppTab.home),
       AppRoutes.catalog => const AppShell(initialTab: AppTab.catalog),
       AppRoutes.gallery => const AppShell(initialTab: AppTab.gallery),

@@ -124,8 +124,61 @@ void main() {
 
       expect(routes, hasLength(6));
       expect(AppRoutes.detailOf('flt-01'), '/detail/flt-01');
-      expect(AppRoutes.resourceIdOf('/detail/flt-01'), 'flt-01');
-      expect(AppRoutes.resourceIdOf(null), isNull);
+    });
+
+    group('normalización de la ruta de detalle', () {
+      test('colapsa /detail/<id> a /detail', () {
+        expect(AppRoutes.normalize('/detail/flt-01'), AppRoutes.detail);
+        expect(AppRoutes.normalize('/detail/cat-04'), AppRoutes.detail);
+      });
+
+      test('deja intactas el resto de rutas', () {
+        expect(AppRoutes.normalize(AppRoutes.home), AppRoutes.home);
+        expect(AppRoutes.normalize(AppRoutes.catalog), AppRoutes.catalog);
+        expect(AppRoutes.normalize(AppRoutes.progress), AppRoutes.progress);
+      });
+
+      test('extrae el id de una ruta de detalle', () {
+        expect(AppRoutes.resourceIdFromRoute('/detail/flt-01'), 'flt-01');
+        expect(AppRoutes.resourceIdFromRoute('/detail/'), isNull);
+        expect(AppRoutes.resourceIdFromRoute('/catalog'), isNull);
+        expect(AppRoutes.resourceIdFromRoute(null), isNull);
+      });
+
+      test('lee el id de los arguments', () {
+        expect(AppRoutes.resourceIdOf('flt-01'), 'flt-01');
+        expect(AppRoutes.resourceIdOf('  '), isNull);
+        expect(AppRoutes.resourceIdOf(42), isNull);
+      });
+    });
+
+    testWidgets('una ruta /detail/<id> abre el detalle, no la pantalla 404', (
+      tester,
+    ) async {
+      await state.load();
+      final navigator = GlobalKey<NavigatorState>();
+      await tester.pumpWidget(
+        AppStateScope(
+          state: state,
+          child: MaterialApp(
+            navigatorKey: navigator,
+            theme: AppTheme.dark,
+            initialRoute: AppRoutes.home,
+            onGenerateRoute: ExreApp.generateRoute,
+          ),
+        ),
+      );
+      await tester.pump();
+
+      navigator.currentState!.pushNamed(
+        AppRoutes.detailOf('a'),
+        arguments: 'a',
+      );
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 16));
+
+      expect(find.text('Ruta no encontrada'), findsNothing);
+      expect(find.text('Introducción a Flutter'), findsWidgets);
     });
   });
 }
