@@ -15,47 +15,7 @@ Built from a literal design specification, with the palette, typography, corner 
 
 ## Authorship
 
-This project was **developed with the help of an AI agent**.
-
-| | |
-| --- | --- |
-| **Tool** | [opencode](https://opencode.ai) — an interactive coding agent that runs in your terminal |
-| **Model** | `big-pickle` (ID: `opencode/big-pickle`) |
-| **Sub-agents** | None. All the work was done in a single session. |
-| **Specification** | Written by a person, before any code was generated |
-
-### The starting point was a brief, not an open-ended request
-
-The work did not begin with a sketch, but with a **249-line specification** written by a person, which fixes the six screens, the literal design-system values, the folder structure, the data schema, the stack constraints and the commit plan. That document is [`docs/prompt_exre_flutter.md`](docs/prompt_exre_flutter.md) and is included in the repository.
-
-### The split of labour, without ambiguity
-
-- **The specification, the design and the decisions are human.** The agent did not pick the stack, propose the palette, set the architecture or decide the data schema — all of that was already written down.
-- **The code was written by the agent**, following that specification to the letter.
-- **Review and publication are human.** Whoever maintains the repository decides what ships, what gets dropped and what gets fixed, and is the one who supplies the publishing credentials.
-
-### How the work was guided
-
-This was not a series of loose requests, but a closed and auditable brief. The concrete practices, with the evidence behind each:
-
-1. **Specification before code.** A closed 249-line document, not an open conversation.
-2. **Explicit, verifiable constraints.** A "non-negotiable constraints" section you can check by reading `pubspec.yaml`.
-3. **Literal design values**, with an explicit instruction never to hardcode anything outside the theme file.
-4. **A definition of done screen by screen**, via a visual-fidelity checklist.
-5. **A commit plan up front**, with the rule that no commit is left broken.
-6. **Human approval before implementation.**
-7. **Visible tracking** through a task list kept up to date.
-8. **Escalating instead of assuming** when facing ambiguous or irreversible decisions.
-
-The result was not accepted on first impressions, but against automatic verification gates: `dart format`, `flutter analyze` with no issues, `flutter test` with 33 passing tests, and a CI workflow that runs them on every push. The suite does not depend on `sqflite`: `Injection.build()` accepts an alternative repository, so the tests exercise the entire UI in memory.
-
-### What is not verified
-
-- **The app has not been run on a physical device and no APK has been produced.** `flutter analyze` is clean and all 33 tests pass, but the interface has **never been seen on screen**: there are no screenshots. Running it on a phone and checking the fidelity checklist against the PDF are out of scope for this repository.
-- The fidelity checklist was applied **while writing the code**, but was **never verified on screen**. In other words: token compliance is guaranteed by design and by tests, not by visual observation.
-- The history has **39 commits against the 26 in the plan**: it is a superset, not a literal match. The Conventional Commits format was respected.
-
-The full detail on all of this is in **[`docs/AI_ASSISTED_DEVELOPMENT.md`](docs/AI_ASSISTED_DEVELOPMENT.md)**, which includes this same section of limits.
+The code in this project was written with the support of the [opencode](https://opencode.ai) AI agent.
 
 ---
 
@@ -280,12 +240,8 @@ The project was implemented from these files, all included in the repository:
 
 | File | What it is |
 | ---- | ---------- |
-| [`docs/prompt_exre_flutter.md`](docs/prompt_exre_flutter.md) | **The original brief**: functional and visual specification, non-negotiable constraints, design tokens, folder structure, data model and commit plan. |
-| [`docs/AI_ASSISTED_DEVELOPMENT.md`](docs/AI_ASSISTED_DEVELOPMENT.md) | **The process record**: which agent was used, how it was guided and what is still unverified. |
 | [`docs/App ExRE.pdf`](docs/App%20ExRE.pdf) | Reference mockup. |
 | [`docs/Diseño.pen`](docs/Diseño.pen) | pen.dev design file. |
-
-Full index in [`docs/README.md`](docs/README.md).
 
 ## License
 

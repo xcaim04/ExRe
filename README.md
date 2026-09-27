@@ -2,67 +2,18 @@
 
 **Explorador de Recursos de Estudio** — app Flutter para Android para explorar, filtrar, buscar, marcar como favorito y completar recursos de estudio. Seis pantallas, cinco pestañas, persistencia local en SQLite y cero dependencias de red.
 
-Implementada a partir de una especificación de diseño literal, con la paleta, la tipografía, los radios y las métricas del diseño reproducidos al token. La especificación y los archivos de referencia están en [`docs/`](docs/).
+Implementada a partir de una especificación de diseño literal, con la paleta, la tipografía, los radios y las métricas del diseño reproducidos al token. Los archivos de referencia están en [`docs/`](docs/).
 
 [![CI](https://github.com/xcaim04/ExRe/actions/workflows/ci.yml/badge.svg)](https://github.com/xcaim04/ExRe/actions/workflows/ci.yml)
 [![Flutter](https://img.shields.io/badge/Flutter-3.44.9-02569A?logo=flutter&logoColor=white)](https://docs.flutter.dev/release/release-notes/release-notes-3.44.9)
 [![Dart](https://img.shields.io/badge/Dart-3.12.2-0175C2?logo=dart&logoColor=white)](https://dart.dev)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-> 🇬🇧 [English version](README.en.md)
-
----
-
-## Autoría
-
-Este proyecto fue **desarrollado con ayuda de un agente de inteligencia artificial**.
-
-| | |
-| --- | --- |
-| **Herramienta** | [opencode](https://opencode.ai) — agente de programación interactivo que se ejecuta en la terminal |
-| **Modelo** | `big-pickle` (ID: `opencode/big-pickle`) |
-| **Subagentes** | Ninguno. Todo el trabajo se hizo en una única sesión. |
-| **Especificación** | Escrita por una persona, antes de generar código |
-
-### El punto de partida fue un encargo, no una petición abierta
-
-El trabajo no empezó con un boceto, sino con una **especificación de 249 líneas** escrita por una persona, que fija las seis pantallas, los valores literales del sistema de diseño, la estructura de carpetas, el esquema de datos, las restricciones del stack y el plan de commits. Ese documento es [`docs/prompt_exre_flutter.md`](docs/prompt_exre_flutter.md) y se incluye en el repositorio.
-
-### El reparto, sin ambigüedad
-
-- **La especificación, el diseño y las decisiones son humanos.** El agente no eligió el stack, ni propuso la paleta, ni fijó la arquitectura, ni decidió el esquema de datos: todo eso ya estaba escrito.
-- **El código lo escribió el agente**, siguiendo esa especificación al pie de la letra.
-- **La revisión y la publicación son humanas.** Quien mantiene el repositorio decide qué se envía, qué se descarta y qué se corrige, y es quien aporta las credenciales de publicación.
-
-### Cómo se guió el trabajo
-
-El guiado no fueron peticiones sueltas, sino un encargo cerrado y auditable. Las prácticas concretas, con la evidencia que las respalda:
-
-1. **Especificación antes que código.** Un documento cerrado de 249 líneas, no una conversación abierta.
-2. **Restricciones explícitas y verificables.** Una sección de "restricciones no negociables" que se comprueba leyendo `pubspec.yaml`.
-3. **Valores de diseño literales**, con orden expresa de no hardcodear nada fuera del archivo de tema.
-4. **Definición de terminado pantalla por pantalla**, mediante un checklist de fidelidad visual.
-5. **Plan de commits previo**, con la regla de que ningún commit se deja roto.
-6. **Aprobación humana antes de implementar.**
-7. **Seguimiento visible** mediante una lista de tareas mantenida al día.
-8. **Escalar en lugar de suponer** ante decisiones ambiguas o irreversibles.
-
-El resultado no se aceptó por buena impresión, sino contra puertas de verificación automáticas: `dart format`, `flutter analyze` sin incidencias, `flutter test` con 33 pruebas correctas y un workflow de CI que las ejecuta en cada push. La suite no depende de `sqflite`: `Injection.build()` acepta un repositorio alternativo, así que las pruebas ejercitan la interfaz completa en memoria.
-
-### Qué no está verificado
-
-- **La app no se ha ejecutado en un dispositivo físico y no se ha generado ningún APK.** `flutter analyze` está limpio y las 33 pruebas pasan, pero la interfaz **nunca se ha visto en pantalla**: no hay capturas. La ejecución sobre un móvil y el contraste del checklist de fidelidad contra el PDF quedan fuera del alcance de este repositorio.
-- El checklist de fidelidad se aplicó **al escribir el código**, pero **nunca se comprobó sobre pantalla**. Es decir: el cumplimiento de los tokens está garantizado por diseño y por test, no por observación visual.
-- El historial tiene **39 commits frente a los 26 del plan**: es un superconjunto, no una correspondencia literal. El formato de Conventional Commits sí se respetó.
-
-El detalle completo de todo esto está en **[`docs/AI_ASSISTED_DEVELOPMENT.md`](docs/AI_ASSISTED_DEVELOPMENT.md)**, que incluye esta misma sección de límites.
-
 ---
 
 ## Contenido
 
 - [Qué hace](#qué-hace)
-- [Autoría](#autoría)
 - [Las seis pantallas](#las-seis-pantallas)
 - [Stack y restricciones](#stack-y-restricciones)
 - [Puesta en marcha](#puesta-en-marcha)
@@ -74,6 +25,7 @@ El detalle completo de todo esto está en **[`docs/AI_ASSISTED_DEVELOPMENT.md`](
 - [Testing](#testing)
 - [Decisiones de diseño](#decisiones-de-diseño)
 - [Especificación](#especificación)
+- [Autoría](#autoría)
 - [Licencia](#licencia)
 
 ---
@@ -226,7 +178,7 @@ Navigator.pushNamed(context, AppRoutes.detailOf(id), arguments: id);
 Navigator.pushNamed(context, AppRoutes.detail, arguments: id);
 ```
 
-El generador de rutas normaliza con `AppRoutes.normalize()`, que colapsa `/detail/<id>` a `/detail`, de modo que ambas formas resuelven a la misma pantalla. El id viaja en `arguments`, y `AppRoutes.resourceIdFromRoute()` / `AppRoutes.resourceIdOf()` lo recuperan desde la ruta o desde los argumentos respectivamente.
+El generador de rutas normaliza con `AppRoutes.normalize(settings.name)`, que colapsa `/detail/<id>` en `/detail`, de modo que ambas formas resuelven a la misma pantalla. El id viaja en `arguments` y se recupera con `AppRoutes.resourceIdOf()`, o desde la ruta con `AppRoutes.resourceIdFromRoute()`.
 
 ## Estado
 
@@ -280,12 +232,12 @@ El proyecto se implementó a partir de estos archivos, incluidos en el repo:
 
 | Archivo | Qué es |
 | ------- | ------ |
-| [`docs/prompt_exre_flutter.md`](docs/prompt_exre_flutter.md) | **El encargo original**: especificación funcional y visual, restricciones no negociables, tokens del diseño, estructura de carpetas, modelo de datos y plan de commits. |
-| [`docs/AI_ASSISTED_DEVELOPMENT.md`](docs/AI_ASSISTED_DEVELOPMENT.md) | **El registro del proceso**: qué agente se usó, cómo se guió y qué queda sin verificar. |
 | [`docs/App ExRE.pdf`](docs/App%20ExRE.pdf) | Mockup de referencia. |
 | [`docs/Diseño.pen`](docs/Diseño.pen) | Archivo de diseño de pen.dev. |
 
-Índice completo en [`docs/README.md`](docs/README.md).
+## Autoría
+
+El código de este proyecto se escribió con el apoyo del agente de IA [opencode](https://opencode.ai).
 
 ## Licencia
 
