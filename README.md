@@ -51,8 +51,8 @@ El resultado no se aceptó por buena impresión, sino contra puertas de verifica
 
 ### Qué no está verificado
 
-- **La app todavía no se ha ejecutado en un dispositivo físico.** En el momento de escribir este README, `flutter analyze` está limpio y las 33 pruebas pasan, pero no hay ninguna captura de pantalla real: la ejecución sobre un Samsung Galaxy A16 con Android 15 y el contraste del checklist de fidelidad contra el PDF de referencia quedan pendientes.
-- El checklist de fidelidad se aplicó **al escribir el código**, pero **nunca se comprobó sobre pantalla**.
+- **La app no se ha ejecutado en un dispositivo físico y no se ha generado ningún APK.** `flutter analyze` está limpio y las 33 pruebas pasan, pero la interfaz **nunca se ha visto en pantalla**: no hay capturas. La ejecución sobre un móvil y el contraste del checklist de fidelidad contra el PDF quedan fuera del alcance de este repositorio.
+- El checklist de fidelidad se aplicó **al escribir el código**, pero **nunca se comprobó sobre pantalla**. Es decir: el cumplimiento de los tokens está garantizado por diseño y por test, no por observación visual.
 - El historial tiene **39 commits frente a los 26 del plan**: es un superconjunto, no una correspondencia literal. El formato de Conventional Commits sí se respetó.
 
 El detalle completo de todo esto está en **[`docs/AI_ASSISTED_DEVELOPMENT.md`](docs/AI_ASSISTED_DEVELOPMENT.md)**, que incluye esta misma sección de límites.

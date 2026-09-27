@@ -51,8 +51,8 @@ The result was not accepted on first impressions, but against automatic verifica
 
 ### What is not verified
 
-- **The app has not yet been run on a physical device.** As of writing this README, `flutter analyze` is clean and all 33 tests pass, but there is not a single real screenshot: running it on a Samsung Galaxy A16 running Android 15, and checking the fidelity checklist against the reference PDF, are still pending.
-- The fidelity checklist was applied **while writing the code**, but it was **never verified on screen**.
+- **The app has not been run on a physical device and no APK has been produced.** `flutter analyze` is clean and all 33 tests pass, but the interface has **never been seen on screen**: there are no screenshots. Running it on a phone and checking the fidelity checklist against the PDF are out of scope for this repository.
+- The fidelity checklist was applied **while writing the code**, but was **never verified on screen**. In other words: token compliance is guaranteed by design and by tests, not by visual observation.
 - The history has **39 commits against the 26 in the plan**: it is a superset, not a literal match. The Conventional Commits format was respected.
 
 The full detail on all of this is in **[`docs/AI_ASSISTED_DEVELOPMENT.md`](docs/AI_ASSISTED_DEVELOPMENT.md)**, which includes this same section of limits.

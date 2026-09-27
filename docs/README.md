@@ -15,4 +15,4 @@ Los documentos de referencia de ExRE. El contenido de esta carpeta es lo que se 
 2. **`AI_ASSISTED_DEVELOPMENT.md`**, si quieres saber quién decidió qué, cómo se controló el trabajo y qué no está verificado.
 3. Los dos archivos de diseño, si quieres contrastar el resultado con la referencia.
 
-> **Nota.** El PDF y el archivo `.pen` son la referencia de diseño, pero su contraste contra la interfaz real sigue pendiente: la app todavía no se ha ejecutado en un dispositivo físico. Ver la sección de límites en `AI_ASSISTED_DEVELOPMENT.md`.
+> **Nota.** El PDF y el archivo `.pen` son la referencia de diseño, pero su contraste contra la interfaz real no se ha hecho: la app no se ha ejecutado en ningún dispositivo físico. Ver la sección de límites en `AI_ASSISTED_DEVELOPMENT.md`.
