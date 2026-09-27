@@ -1,0 +1,50 @@
+name: exre
+description: "ExRE — Explorador de Recursos de Estudio."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  sqflite: ^2.4.1
+  path_provider: ^2.1.5
+  path: ^1.9.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  fonts:
+    # Display — títulos y valores grandes
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+    # Body — todo lo demás
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-400Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Inter-500Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Inter-600SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Inter-700Bold.ttf
+          weight: 700
