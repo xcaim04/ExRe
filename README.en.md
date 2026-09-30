@@ -22,6 +22,7 @@ The code in this project was written with the support of the [opencode](https://
 ## Contents
 
 - [What it does](#what-it-does)
+- [Screenshots](#screenshots)
 - [Authorship](#authorship)
 - [The six screens](#the-six-screens)
 - [Stack and constraints](#stack-and-constraints)
@@ -45,6 +46,13 @@ The code in this project was written with the support of the [opencode](https://
 - **Save** favorites and mark resources as completed, with optimistic writes and automatic rollback if SQLite fails.
 - **Track** progress with an overall percentage, a time-based percentage and a per-category breakdown.
 - **Persist** everything in a local SQLite database: the app works with no server, no account and no connection.
+
+## Screenshots
+
+| | | |
+| --- | --- | --- |
+| **Home**<br>![](assets/inicio.png) | **Catalog**<br>![](assets/catalogo.png) | **Gallery**<br>![](assets/galeria.png) |
+| **Categories**<br>![](assets/categorias.png) | **Favorites**<br>![](assets/favoritos.png) | **Progress**<br>![](assets/progreso.png) |
 
 ## The six screens
 

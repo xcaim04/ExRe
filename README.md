@@ -14,6 +14,7 @@ Implementada a partir de una especificación de diseño literal, con la paleta, 
 ## Contenido
 
 - [Qué hace](#qué-hace)
+- [Capturas](#capturas)
 - [Las seis pantallas](#las-seis-pantallas)
 - [Stack y restricciones](#stack-y-restricciones)
 - [Puesta en marcha](#puesta-en-marcha)
@@ -37,6 +38,13 @@ Implementada a partir de una especificación de diseño literal, con la paleta, 
 - **Guarda** favoritos y marca recursos como completados, con escrituras optimistas y reversión automática si SQLite falla.
 - **Mide** el progreso con porcentaje general, porcentaje de tiempo y desglose por categoría.
 - **Persiste** todo en una base SQLite local: la app funciona sin servidor, sin cuenta y sin conexión.
+
+## Capturas
+
+| | | |
+| --- | --- | --- |
+| **Inicio**<br>![](assets/inicio.png) | **Catálogo**<br>![](assets/catalogo.png) | **Galería**<br>![](assets/galeria.png) |
+| **Categorías**<br>![](assets/categorias.png) | **Favoritos**<br>![](assets/favoritos.png) | **Progreso**<br>![](assets/progreso.png) |
 
 ## Las seis pantallas
 
